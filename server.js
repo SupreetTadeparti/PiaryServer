@@ -13,12 +13,12 @@ const DateModel = require("./models/Date");
 require("dotenv").config({ path: "./config.env" });
 
 const PORT = process.env.PORT || 5000;
+console.log(PORT);
 
 mongoose.connect(process.env.DB_URL);
 
 app.use(express.static(__dirname + "/static"));
 
-// app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -130,7 +130,6 @@ app.post("/api/new-entry", async (req, res) => {
     user.save();
     res.send({ successful: true, message: "Successfully saved entry" });
   } catch (e) {
-    console.log(e);
     res.send({ successful: false, message: "Failed to save entry" });
   }
 });
@@ -166,7 +165,10 @@ app.post("/api/register", async (req, res) => {
     piary.save();
     user.save();
   } catch (e) {
-    console.log(e);
+    res.send({
+      successful: false,
+      message: "Failed to create user",
+    });
   }
 
   res.send({
