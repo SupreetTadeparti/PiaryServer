@@ -14,7 +14,7 @@ require("dotenv").config({ path: "./config.env" });
 
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect("mongodb://localhost/mongodb");
+mongoose.connect(process.env.DB_URL);
 
 app.use(express.static(__dirname + "/static"));
 
@@ -35,7 +35,7 @@ app.get("/api/logged-in", (req, res) => {
     res.send({ successful: false, message: "User not in session" });
   } else res.send({ successful: true, message: "User is logged in" });
 });
-git 
+git;
 app.get("/api/get-user", (req, res) => {
   if (req.session.user === undefined) {
     res.send({ successful: false, message: "User not in session" });
