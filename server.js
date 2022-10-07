@@ -17,7 +17,7 @@ console.log(PORT);
 
 mongoose.connect(process.env.DB_URL);
 
-app.use(express.static(__dirname + "/static"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
