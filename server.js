@@ -35,7 +35,7 @@ app.get("/api/logged-in", (req, res) => {
     res.send({ successful: false, message: "User not in session" });
   } else res.send({ successful: true, message: "User is logged in" });
 });
-git;
+
 app.get("/api/get-user", (req, res) => {
   if (req.session.user === undefined) {
     res.send({ successful: false, message: "User not in session" });
