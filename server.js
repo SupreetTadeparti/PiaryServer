@@ -13,13 +13,13 @@ const DateModel = require("./models/Date");
 require("dotenv").config({ path: "./config.env" });
 
 const PORT = process.env.PORT || 5000;
-console.log(PORT);
 
-mongoose.connect(process.env.DB_URL);
+mongoose.connect(process.env.DB_URL || "mongodb://localhost/mongodb");
 
 app.use("/static", express.static(path.join(__dirname, "static")));
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: process.env.ORIGIN }));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
@@ -60,7 +60,7 @@ app.post("/api/logout", (req, res) => {
 app.post("/api/login", async (req, res) => {
   // finds users with given username and email
   const username = await User.findOne({ username: req.body.username });
-  const email = await User.findOne({ email: req.body.email });
+  const email = await User.findOne({ email: req.body.username });
 
   // checks if password matches
   if (
