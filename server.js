@@ -68,7 +68,7 @@ app.post("/api/login", async (req, res) => {
     (email && (await email.validatePassword(req.body.password)))
   ) {
     // adds user to session
-    req.session.user = req.body.username;
+    req.session.user = username?.username || email.username;
     req.session.save();
     res.send({ successful: true, message: "Successfully logged in" });
   } else {
