@@ -11,7 +11,7 @@ const Piary = require("./models/Piary");
 const Entry = require("./models/Entry");
 const DateModel = require("./models/Date");
 
-require("dotenv").config(".env");
+require("dotenv").config();
 
 // the port -_-
 const PORT = 5000;
@@ -21,7 +21,8 @@ app.use("/static", express.static(path.join(__dirname, "static")));
 
 let origin = "http://localhost:3000";
 
-if (process.env.NODE_ENV === "production") origin = "https://piary.glitch.me";
+if (process.env.NODE_ENV === "production")
+  origin = " https://sore-pink-millipede-coat.cyclic.app";
 
 app.use(cors({ credentials: true, origin: origin }));
 
@@ -34,6 +35,7 @@ app.use(
     store: new MemoryStore({
       checkPeriod: DAY,
     }),
+    saveUninitialized: false,
     resave: false,
     secret: "piaries are better than diaries",
   })
