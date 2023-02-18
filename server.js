@@ -21,8 +21,7 @@ app.use("/static", express.static(path.join(__dirname, "static")));
 
 let origin = "http://localhost:3000";
 
-if (process.env.NODE_ENV === "production")
-  origin = " https://sore-pink-millipede-coat.cyclic.app";
+if (process.env.NODE_ENV === "production") origin = process.env.ORIGIN;
 
 app.use(cors({ credentials: true, origin: origin }));
 
