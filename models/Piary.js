@@ -7,6 +7,10 @@ const piarySchema = new mongoose.Schema({
       ref: "Entry",
     },
   ],
+  color: {
+    type: [Number],
+    default: [111, 196, 248],
+  },
 });
 
 module.exports = mongoose.model("Piary", piarySchema);
