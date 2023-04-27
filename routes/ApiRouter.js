@@ -86,6 +86,21 @@ router.get("/entry", async (req, res) => {
   res.send([]);
 });
 
+router.post("/delete", async (req, res) => {
+  const user = await User.findOne({ username: req.session.user }).populate(
+    "piary"
+  );
+  const piary = await user.piary.populate("entries");
+  piary.entries = piary.entries.filter(
+    (entry) => entry._id !== req.body.entryID
+  );
+  await piary.save();
+  Entry.findByIdAndDelete(req.body.entryID, (err) => {
+    if (err) console.log(err);
+  });
+  res.send(true);
+});
+
 router.post("/new-entry", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.session.user }).populate(
