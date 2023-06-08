@@ -19,8 +19,6 @@ const origin =
     ? process.env.ORIGIN
     : "http://localhost:3000";
 
-
-
 app.use(cors({ credentials: true, origin: origin }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
