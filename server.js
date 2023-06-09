@@ -6,20 +6,14 @@ const MemoryStore = require("memorystore")(session);
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
-require("dotenv").config();
+const config = require("./config");
 
 const PORT = 5000;
 const DAY = 86400000; // in ms
 
 app.use("/static", express.static(path.join(__dirname, "static")));
 
-const origin =
-  process.env.NODE_ENV === "production"
-    ? process.env.ORIGIN
-    : "http://localhost:3000";
-
-app.use(cors({ credentials: true, origin: origin }));
+app.use(cors({ credentials: true, origin: config.origin }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -32,7 +26,7 @@ app.use(
     }),
     saveUninitialized: false,
     resave: false,
-    secret: "piaries are better than diaries",
+    secret: config.sessionSecret,
   })
 );
 

@@ -73,7 +73,7 @@ router.get("/entry", async (req, res) => {
     if (entry.id == req.query.entryID) {
       res.send({
         title: entry.title,
-        pages: entry.pages,
+        pages: entry.decryptedPages(),
         date: {
           day: entry.date.day,
           month: entry.date.month,
@@ -178,7 +178,7 @@ router.get("/diary-clr", async (req, res) => {
   res.send({ color: user.piary.color });
 });
 
-router.post("/diary-clr", async (req, res) => {
+router.post("/diary-clr", async (req, _res) => {
   const user = await User.findOne({ username: req.session.user }).populate(
     "piary"
   );
