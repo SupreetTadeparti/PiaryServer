@@ -35,7 +35,7 @@ entrySchema.pre("save", function (next) {
     return next(err);
   }
 });
-
+  
 entrySchema.methods.decryptedPages = function () {
   return this.encrypted
     ? this.pages.map((page) =>
